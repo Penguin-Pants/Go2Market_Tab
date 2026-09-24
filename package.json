@@ -1,0 +1,22 @@
+{
+  "name": "go2market-tab",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Chrome extension that replaces the new tab page with a company go-to-market dashboard, fed by a private Google Sheet through an Apps Script connector.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "test": "node --test test/unit/*.test.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.11.0",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.9"
+  }
+}

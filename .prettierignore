@@ -1,0 +1,8 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+extension/vendor/
+docs/reference/
+docs/BUILD_BRIEF.md
+package-lock.json
