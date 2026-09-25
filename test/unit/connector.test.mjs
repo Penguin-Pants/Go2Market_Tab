@@ -407,3 +407,47 @@ describe("renderReportHtml", () => {
     assert.ok(!html.includes("<img"));
   });
 });
+
+describe("chooseSpreadsheet", () => {
+  const never = () => assert.fail("must not be called");
+
+  test("uses the active sheet and calls no other service", () => {
+    const active = { name: "bound" };
+    assert.equal(gs.chooseSpreadsheet(active, never, never), active);
+  });
+
+  test("opens the stored ID when there is no active sheet", () => {
+    const opened = gs.chooseSpreadsheet(
+      null,
+      () => "sheet-id-1",
+      (id) => ({ id }),
+    );
+    assert.deepEqual(plain(opened), { id: "sheet-id-1" });
+  });
+
+  test("names the fix when there is no active sheet and no stored ID", () => {
+    assert.throws(() => gs.chooseSpreadsheet(null, () => null, never), /Get connect link once/);
+  });
+});
+
+describe("rememberSpreadsheetId", () => {
+  test("stores the sheet ID in the script properties", () => {
+    const context = loadConnector();
+    const stored = {};
+    context.PropertiesService = {
+      getScriptProperties: () => ({ setProperty: (key, value) => (stored[key] = value) }),
+    };
+    assert.equal(context.rememberSpreadsheetId({ getId: () => "abc" }), true);
+    assert.deepEqual(stored, { g2mSpreadsheetId: "abc" });
+  });
+
+  test("does not break the menu when the store is refused", () => {
+    const context = loadConnector();
+    context.PropertiesService = {
+      getScriptProperties: () => {
+        throw new Error("Authorization is required to perform that action.");
+      },
+    };
+    assert.equal(context.rememberSpreadsheetId({ getId: () => "abc" }), false);
+  });
+});

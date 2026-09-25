@@ -29,6 +29,10 @@ var CACHE_MAX_CHUNKS = 20;
 var CACHE_KEY_PREFIX = "g2m:v1:";
 var CACHE_INDEX_KEY = CACHE_KEY_PREFIX + "index";
 
+/* Script property that holds the ID of the bound sheet. The menu stores it,
+   so doGet can open the sheet by ID if the web app has no active sheet. */
+var SPREADSHEET_ID_PROPERTY = "g2mSpreadsheetId";
+
 /* Old tab names that the extension also accepts. Used here only to avoid
    duplicate tabs in "Set up template tabs" and to name tabs in "Check sheet". */
 var TAB_ALIASES = {
@@ -59,12 +63,49 @@ var COLUMN_ALIASES = {
 /* ------------------------------------------------------------------ */
 
 function doGet() {
-  var json = getContentJson(
+  var spreadsheet = chooseSpreadsheet(
     SpreadsheetApp.getActiveSpreadsheet(),
-    CacheService.getScriptCache(),
-    new Date(),
+    function () {
+      return PropertiesService.getScriptProperties().getProperty(SPREADSHEET_ID_PROPERTY);
+    },
+    function (id) {
+      return SpreadsheetApp.openById(id);
+    },
   );
+  var json = getContentJson(spreadsheet, CacheService.getScriptCache(), new Date());
   return ContentService.createTextOutput(json).setMimeType(ContentService.MimeType.JSON);
+}
+
+/* A bound web app normally gets its sheet from getActiveSpreadsheet(). Spike
+   test T9 checks this with the narrow spreadsheets.currentonly scope. Only
+   when there is no active sheet does this read the stored ID and open it.
+   That path needs the spreadsheets and script.storage scopes, so it works
+   only after the scope change that the spike describes. The normal path
+   calls no other service. */
+function chooseSpreadsheet(active, readStoredId, openById) {
+  if (active) return active;
+  var storedId = readStoredId();
+  if (storedId) return openById(storedId);
+  throw new Error(
+    "Go2Market: the web app has no active sheet and no stored sheet ID. " +
+      "Open the sheet and click Go2Market > Get connect link once.",
+  );
+}
+
+/* Called from the menu, where the active sheet is always known. Stores the
+   ID for the fallback in chooseSpreadsheet. With the default scopes the
+   store can be refused; the menu action must still work, and the doGet
+   error above names the fix. Returns true when the ID is stored. */
+function rememberSpreadsheetId(spreadsheet) {
+  try {
+    PropertiesService.getScriptProperties().setProperty(
+      SPREADSHEET_ID_PROPERTY,
+      spreadsheet.getId(),
+    );
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 /* Returns the payload as JSON text. Uses the script cache when it can. */
@@ -264,6 +305,7 @@ function planTemplateTabs(existingNames) {
 
 function setupTemplateTabs() {
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  rememberSpreadsheetId(spreadsheet);
   var existing = spreadsheet.getSheets().map(function (sheet) {
     return sheet.getName();
   });
@@ -540,6 +582,7 @@ function connectLinkState(serviceUrl) {
 }
 
 function showConnectLink() {
+  rememberSpreadsheetId(SpreadsheetApp.getActiveSpreadsheet());
   var state = connectLinkState(ScriptApp.getService().getUrl());
   var output = HtmlService.createHtmlOutput(renderConnectLinkHtml(state))
     .setWidth(600)

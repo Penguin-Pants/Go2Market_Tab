@@ -125,16 +125,20 @@
   2. Wait two minutes (the connector cache lasts 120 seconds).
   3. Click **Load test: 200 in one minute**. Wait about 60 seconds until it shows 200 of 200. Copy the result.
 - **Expected (pass):** no failed requests in either run. Record the p50, p90 and max latency.
-- **Also record:** the time of the first request (a cold connector is slower).
+- **Also record:** the "First request" row (a cold connector is slower).
 
 ### T9: `spreadsheets.currentonly` scope in `doGet`
 
 - **Do:** look at the T1 result.
 - **Pass:** T1 is `OK`. The web app reads the sheet with the narrow `spreadsheets.currentonly` scope.
-- **Fail:** T1 gives `NOT_A_CONNECTOR` and the response start mentions a permission for `SpreadsheetApp`. Then do these steps and run T1 again:
-  1. In `appsscript.json`, change `spreadsheets.currentonly` to `spreadsheets`.
-  2. Save. Click **Deploy > Manage deployments**, pencil icon, **Version: New version**, **Deploy**. Authorize again.
-  3. Write down the exact error text from the first run.
+- **Fail:** T1 gives `NOT_A_CONNECTOR`. The response start shows one of these errors:
+  - a permission error for `SpreadsheetApp`, or
+  - "Go2Market: the web app has no active sheet and no stored sheet ID".
+- **If it fails, do these steps and run T1 again:**
+  1. Write down the exact error text from the first run.
+  2. In `appsscript.json`, change `spreadsheets.currentonly` to `spreadsheets`. Add `https://www.googleapis.com/auth/script.storage` to the `oauthScopes` list.
+  3. Save. Go to the sheet tab and click **Go2Market > Get connect link** once. Authorize again. This stores the sheet ID for the web app.
+  4. Click **Deploy > Manage deployments**, pencil icon, **Version: New version**, **Deploy**.
 
 ---
 

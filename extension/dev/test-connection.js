@@ -143,6 +143,7 @@ function renderLoad(title, results, done, total) {
       "Latency min / p50 / p90 / p99 / max",
       `${s.minMs} / ${s.p50Ms} / ${s.p90Ms} / ${s.p99Ms} / ${s.maxMs} ms`,
     ],
+    ["First request (request 1)", s.firstMs === null ? "not done yet" : `${s.firstMs} ms`],
   ];
   setRows($("load-rows"), rows);
   return rows;
@@ -162,6 +163,7 @@ async function runLoad(title, total, spacingMs) {
         .then(() => fetchContent(url))
         .then((r) => {
           results.push({
+            index: i,
             ok: r.ok,
             errorClass: r.errorClass,
             status: r.info.status,

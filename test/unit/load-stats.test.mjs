@@ -14,11 +14,11 @@ test("percentile uses the nearest rank", () => {
 
 test("summarizeLoad counts results and groups errors", () => {
   const summary = summarizeLoad([
-    { ok: true, ms: 300 },
-    { ok: true, ms: 100 },
-    { ok: false, errorClass: "UNKNOWN", status: 429, ms: 50 },
-    { ok: false, errorClass: "UNKNOWN", status: 429, ms: 60 },
-    { ok: false, errorClass: "NOT_SIGNED_IN", status: 0, ms: 900 },
+    { index: 1, ok: true, ms: 300 },
+    { index: 3, ok: true, ms: 100 },
+    { index: 2, ok: false, errorClass: "UNKNOWN", status: 429, ms: 50 },
+    { index: 4, ok: false, errorClass: "UNKNOWN", status: 429, ms: 60 },
+    { index: 0, ok: false, errorClass: "NOT_SIGNED_IN", status: 0, ms: 900 },
   ]);
   assert.deepEqual(summary, {
     total: 5,
@@ -30,5 +30,15 @@ test("summarizeLoad counts results and groups errors", () => {
     p90Ms: 900,
     p99Ms: 900,
     maxMs: 900,
+    firstMs: 900,
   });
+});
+
+test("summarizeLoad reports the first request by start order, not finish order", () => {
+  assert.equal(summarizeLoad([{ index: 1, ok: true, ms: 40 }]).firstMs, null);
+  const summary = summarizeLoad([
+    { index: 1, ok: true, ms: 40 },
+    { index: 0, ok: true, ms: 1800 },
+  ]);
+  assert.equal(summary.firstMs, 1800);
 });
