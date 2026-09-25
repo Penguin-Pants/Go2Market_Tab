@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extName__",
+  "short_name": "__MSG_extShortName__",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
+  "version": "0.1.0",
+  "minimum_chrome_version": "120",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAloZU86RWu/B0Azg/dS7Hzsbf39JfWlIANucalEabDNWSVgyEaUcdnNpvAGLoEXl2lV5F8jd+uS0HQ2eK0ZySdXZ3PNhzejZQd7Ce3VAxlYBnixTyw63XqfXLVAhAnjchDNYHa6XO6jEbPbDSJABuCsQNXhZr/Ef+Ohl0SkYIZvxTK6LtKuoMYn2ymizSEo/iERMofoAqs+7vthdLtY2Kl4h/8L0qTZqcYcdOLIU9E9SbrGrXVXwdjjCd0dnHdvbAbpT6/Qk9ldpeCIOqLY+oxfz++1ZXeIkvW32kX6rJOGjQFevNSblfgJ2pUEaU30LO8HI/MtEbLhVHnWnzZmphOQIDAQAB",
+  "host_permissions": ["https://script.google.com/*", "https://script.googleusercontent.com/*"]
+}
