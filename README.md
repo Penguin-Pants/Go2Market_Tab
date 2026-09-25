@@ -28,6 +28,7 @@ Early development. See [`docs/BUILD_BRIEF.md`](docs/BUILD_BRIEF.md) for the plan
 - `npm install`
 - `npm run lint`
 - `npm test`
+- `npm run template:sync` (after you change `connector/template/`)
 
 ## License
 

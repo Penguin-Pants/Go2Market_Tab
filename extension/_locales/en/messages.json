@@ -1,0 +1,14 @@
+{
+  "extName": {
+    "message": "Go2Market Tab",
+    "description": "Extension name in the Chrome Web Store and in chrome://extensions."
+  },
+  "extShortName": {
+    "message": "Go2Market",
+    "description": "Short extension name where space is limited."
+  },
+  "extDescription": {
+    "message": "Your company go-to-market dashboard on every new tab: quick links, messaging, decks, Drive links and key people.",
+    "description": "Extension description in the Chrome Web Store and in chrome://extensions."
+  }
+}

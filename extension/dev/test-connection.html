@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Go2Market Tab: Test connection (dev)</title>
+    <link rel="stylesheet" href="test-connection.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Test connection</h1>
+      <p class="note">
+        Developer tool for the P0-0 connector spike. It is not part of the store build. See
+        <code>docs/spike/P0-0-connector-spike.md</code>.
+      </p>
+
+      <form id="form">
+        <label for="url">Connector web app URL (ends with /exec)</label>
+        <input
+          id="url"
+          type="url"
+          required
+          spellcheck="false"
+          autocomplete="off"
+          placeholder="https://script.google.com/a/macros/your-domain.com/s/.../exec"
+        />
+        <p id="url-error" class="error" hidden></p>
+        <div class="buttons">
+          <button type="submit">Test connection</button>
+          <button type="button" id="load-parallel">Load test: 50 parallel</button>
+          <button type="button" id="load-minute">Load test: 200 in one minute</button>
+        </div>
+      </form>
+
+      <section id="result" hidden>
+        <h2>Result</h2>
+        <table>
+          <tbody id="result-rows"></tbody>
+        </table>
+        <h3>Response start (first 600 characters)</h3>
+        <pre id="body-preview"></pre>
+      </section>
+
+      <section id="load" hidden>
+        <h2>Load test</h2>
+        <p id="load-progress"></p>
+        <table>
+          <tbody id="load-rows"></tbody>
+        </table>
+      </section>
+
+      <section id="report" hidden>
+        <h2>Result for the spike table</h2>
+        <p class="note">
+          Copy this text into your spike results. The web app ID is shortened and query strings are
+          removed.
+        </p>
+        <textarea id="report-text" rows="8" readonly></textarea>
+        <button type="button" id="copy-report">Copy</button>
+        <span id="copy-status" role="status"></span>
+      </section>
+    </main>
+    <script type="module" src="test-connection.js"></script>
+  </body>
+</html>

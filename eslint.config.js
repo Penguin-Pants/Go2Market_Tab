@@ -7,6 +7,7 @@ const appsScriptGlobals = {
   CacheService: "readonly",
   ContentService: "readonly",
   HtmlService: "readonly",
+  PropertiesService: "readonly",
   ScriptApp: "readonly",
   SpreadsheetApp: "readonly",
 };

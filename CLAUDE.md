@@ -46,3 +46,4 @@ Rules for any agent or person who works on Go2Market Tab. The full plan is in [`
 
 - `npm run lint`: ESLint and Prettier check.
 - `npm test`: unit tests.
+- `npm run template:sync`: copy `connector/template/` into `connector/Code.gs` after a template change.
