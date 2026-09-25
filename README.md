@@ -24,7 +24,7 @@ Early development. See [`docs/BUILD_BRIEF.md`](docs/BUILD_BRIEF.md) for the plan
 
 ## Development
 
-- Node 20.19 or later.
+- Node 20.19 or later on the 20 line, 22.13 or later on the 22 line, or Node 24 and later (the ESLint 10 range).
 - `npm install`
 - `npm run lint`
 - `npm test`
