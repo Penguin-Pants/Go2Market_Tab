@@ -5,8 +5,11 @@
   Upstream commit (main): 9bf8eae67128b6cc55ad9bf86665767deb4c11cd
   Spec version: alpha
   Retrieved: 2026-09-24
-  License: Apache License 2.0 (upstream repository). This copy is kept unchanged below this comment
-  so the DESIGN.md engine (extension/src/design.js) has a fixed reference.
+  License: Apache License 2.0. Full text: docs/reference/LICENSE-design-md-spec
+  (copied from the same upstream commit).
+  Change notice (Apache 2.0 section 4(b)): Go2Market Tab added this header comment.
+  The specification text below this comment is unchanged. It is kept so the
+  DESIGN.md engine (extension/src/design.js) has a fixed reference.
 -->
 
 <!-- Generated from spec.mdx + spec-config.ts | version: alpha -->

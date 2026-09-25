@@ -10,7 +10,7 @@ The project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - M0 bootstrap: MIT license, README stub, `CLAUDE.md` rules, `.gitignore`, `package.json`, ESLint and Prettier config and a CI workflow (lint and unit tests).
 - Build brief in `docs/BUILD_BRIEF.md`.
-- Reference copy of the Google Labs DESIGN.md spec (alpha) in `docs/reference/design-md-spec.md`.
+- Reference copy of the Google Labs DESIGN.md spec (alpha) in `docs/reference/design-md-spec.md`, with its Apache 2.0 license text in `docs/reference/LICENSE-design-md-spec`.
 - M1 connector v1 (`connector/Code.gs`, `connector/appsscript.json`):
   - `doGet` returns every non-private tab as display values (contract `go2market-tab.content`, version 1).
   - Script cache for 120 seconds, chunked below 90 KB per value. Payloads that are too large skip the cache.
