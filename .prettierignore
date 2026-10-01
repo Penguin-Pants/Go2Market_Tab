@@ -6,3 +6,5 @@ extension/vendor/
 docs/reference/
 docs/BUILD_BRIEF.md
 package-lock.json
+AGENTS.md
+CLAUDE.md
