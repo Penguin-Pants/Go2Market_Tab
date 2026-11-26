@@ -8,3 +8,8 @@ docs/BUILD_BRIEF.md
 package-lock.json
 AGENTS.md
 CLAUDE.md
+
+# Centrally managed shared standards from repo-template. Do not reformat here;
+# the synchronization controller requires byte-identical copies.
+.agents/
+.claude/skills/
